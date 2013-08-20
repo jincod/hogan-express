@@ -130,11 +130,13 @@ render = function(path, opt, fn) {
           result = tmpl.render(opt, partials);
           customTags = str.match(/({{#yield-\w+}})/g);
           if (layout) {
-            for (_i = 0, _len = customTags.length; _i < _len; _i++) {
-              customTag = customTags[_i];
-              tag = customTag.match(/{{#([\w-]+)}}/)[1];
-              if (tag) {
-                opt[tag] = customContent(str, tag, opt);
+            if (customTags) {
+              for (_i = 0, _len = customTags.length; _i < _len; _i++) {
+                customTag = customTags[_i];
+                tag = customTag.match(/{{#([\w-]+)}}/)[1];
+                if (tag) {
+                  opt[tag] = customContent(str, tag, opt);
+                }
               }
             }
             opt["yield"] = result;
